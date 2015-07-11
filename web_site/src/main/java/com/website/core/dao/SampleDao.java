@@ -2,8 +2,12 @@ package com.website.core.dao;
 
 import javax.annotation.Resource;
 
+import org.hibernate.FlushMode;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.website.entities.SampleEntity;
 
@@ -11,9 +15,15 @@ import com.website.entities.SampleEntity;
 public class SampleDao {
 	@Resource
 	private SessionFactory factory;
-	
 	public void addSampleEntity(SampleEntity sample){
-		factory.getCurrentSession().save(sample);
+		Session session = factory.getCurrentSession();
+		//session.beginTransaction();
+		System.err.println(session.getFlushMode());
+		//session.setFlushMode(FlushMode.AUTO);
+		session.save(sample);
+		//session.getTransaction().commit();
+		//Transaction ts = session.beginTransaction();
+		
 	}
 	
 	public boolean deleteSampleEntity(SampleEntity sample){

@@ -11,10 +11,11 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "test")
 @Entity
 public class SampleEntity {
-	@Id
+	@Column(name = "id")
 	@GeneratedValue(generator = "id")
-	@GenericGenerator(name = "id", strategy = "indetity")
+	@GenericGenerator(name = "id", strategy = "increment")
 	private int id;
+	@Id
 	@GeneratedValue(generator = "test")
 	@GenericGenerator(name = "test", strategy = "uuid")
 	@Column(name = "uuid")
@@ -36,4 +37,9 @@ public class SampleEntity {
 		this.uuid = uuid;
 	}
 
+	@Override
+	public String toString() {
+		return "SampleEntity [id=" + id + ", uuid=" + uuid + "]";
+	}
+	
 }
