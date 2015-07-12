@@ -1,6 +1,7 @@
 package com.website.core.view;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
@@ -17,9 +18,9 @@ public class SampleController {
 	@Resource
 	private ISampleService service;
 	@RequestMapping("toSample")
-	public String addSample(){
+	public String addSample(HttpServletRequest request){
 		logger.debug("test success");
-		service.addSample();
+		request.setAttribute("message",service.addSample());
 		return "/sample";
 	}
 

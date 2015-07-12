@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.website.core.EntityFactory;
 import com.website.core.dao.SampleDao;
 import com.website.entities.SampleEntity;
 
@@ -16,7 +16,7 @@ public class SampleServiceImpl implements ISampleService{
 	private SampleDao sampleDao;
 	
 	public String addSample(){
-		SampleEntity sample = new SampleEntity();
+		SampleEntity sample = EntityFactory.createEntity(SampleEntity.class);
 		sampleDao.addBean(sample);
 		System.err.println(sample);
 		return sample.toString();

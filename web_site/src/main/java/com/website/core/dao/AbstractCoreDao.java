@@ -12,11 +12,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.website.core.util.CommonUtil;
+
 @Repository
 public class AbstractCoreDao {
 	@Resource
 	private SessionFactory sessionFactory;
-	private static Logger logger = Logger.getLogger(AbstractCoreDao.class);
+	private Logger logger = Logger.getLogger(getClass());
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -31,8 +32,8 @@ public class AbstractCoreDao {
 	private boolean closeSession(Session session) {
 		session.flush();
 		session.getTransaction().commit();
-		//manage by spring
-		//session.close();
+		// manage by spring
+		// session.close();
 		return true;
 	}
 
@@ -102,27 +103,31 @@ public class AbstractCoreDao {
 		if (orderBy != null && !orderBy.equals("")) {
 			order = "order by ?";
 			query = createHqlQuery(session, "from " + clazz.getSimpleName() + "where id = ? " + order, id, orderBy);
-		}else{
+		} else {
 			query = createHqlQuery(session, "from " + clazz.getSimpleName() + "where id = ? " + order, id);
 		}
 		if (page >= 0 && pageSize > 0) {
 			query.setFirstResult(page * pageSize);
 			query.setMaxResults(page * pageSize + pageSize);
 		}
-		return (List<V>)query.list();
+		return (List<V>) query.list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	protected <V> List<V> queryBySql(String sql,Object... params){
+	protected <V> List<V> queryBySql(String sql, Object... params) {
 		Session session = prepareSession();
 		SQLQuery q = createSqlQuery(session, sql, params);
-		return (List<V>)q.list();
+		return (List<V>) q.list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	protected <V> V querySingleBySql(String sql,Object... params){
+	protected <V> V querySingleBySql(String sql, Object... params) {
 		Session session = prepareSession();
 		SQLQuery q = createSqlQuery(session, sql, params);
-		return (V)q.uniqueResult();
+		return (V) q.uniqueResult();
+	}
+
+	public Logger getLogger() {
+		return logger;
 	}
 }
