@@ -3,6 +3,9 @@ package com.website.core.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -83,6 +86,7 @@ public class CommonUtil {
 
 	/**
 	 * UUID generator
+	 * 
 	 * @return
 	 */
 	public static UUID getUUID() {
@@ -90,7 +94,8 @@ public class CommonUtil {
 	}
 
 	/**
-	 * encrypt password 
+	 * encrypt password
+	 * 
 	 * @param original
 	 * @return
 	 */
@@ -117,6 +122,19 @@ public class CommonUtil {
 		return new BASE64Encoder().encode(sb.toString().getBytes());
 	}
 
+	public static LocalDateTime parseToDate(Timestamp time) {
+		// LocalDateTime ldt = java.time.LocalDate.
+		if (time == null)
+			return LocalDateTime.now();
+		return time.toLocalDateTime();
+	}
+
+	public static String parseToDateString(Timestamp time) {
+		return CommonUtil.parseToDate(time).format(
+				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+	}
+
 	public static void main(String[] argv) {
+		System.err.println();
 	}
 }

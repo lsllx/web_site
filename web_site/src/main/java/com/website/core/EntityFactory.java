@@ -26,7 +26,7 @@ public class EntityFactory {
 		} catch (IllegalAccessException e) {
 			logger.error("illegalAccess! ClassName:" + entityName, e);
 		}
-		return (T) addUUID(entity);
+		return (T) addExtends(entity);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -43,10 +43,10 @@ public class EntityFactory {
 		} catch (IllegalAccessException e) {
 			logger.error("illegalAccess! ClassName:" + clazz.getName(), e);
 		}
-		return (T) addUUID(entity);
+		return (T) addExtends(entity);
 	}
 	
-	private static BaseEntity addUUID(BaseEntity entity){
+	private static BaseEntity addExtends(BaseEntity entity){
 		//entity.getClass().("setUUID", String.class);
 		entity.setUUID(CommonUtil.getUUID().toString());
 		return entity;
