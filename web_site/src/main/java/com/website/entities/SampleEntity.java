@@ -17,6 +17,9 @@ public class SampleEntity extends BaseEntity {
 	@GenericGenerator(name = "id", strategy = "increment")
 	private int id;
 
+	@Column(name = "uuid")
+	protected String UUID;
+
 	public int getId() {
 		return id;
 	}
@@ -25,15 +28,12 @@ public class SampleEntity extends BaseEntity {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "SampleEntity [id=" + id + ", uuid=" + getUUID() + "]";
+	public String getUUID() {
+		return UUID;
 	}
 
-	@Column(name = "uuid")
-	@Override
-	String getUUID() {
-		return UUID;
+	public void setUUID(String uUID) {
+		UUID = uUID;
 	}
 
 }

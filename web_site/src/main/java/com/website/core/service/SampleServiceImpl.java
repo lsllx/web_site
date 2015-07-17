@@ -1,7 +1,7 @@
 package com.website.core.service;
 
-import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +12,7 @@ import com.website.entities.SampleEntity;
 @Service
 @Transactional
 public class SampleServiceImpl implements ISampleService{
-	@Resource
+	@Autowired
 	private SampleDao sampleDao;
 	
 	public String addSample(){
